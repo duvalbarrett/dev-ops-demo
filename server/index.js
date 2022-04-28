@@ -15,7 +15,7 @@ var rollbar = new Rollbar({
 rollbar.log('Hello world!')
 
 
-app.get('/', (req,res) => {
+app.get('/chocolate', (req,res) => {
     res.sendFile(path.join(__dirname, '../index.html'))
 })
 
