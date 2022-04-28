@@ -15,17 +15,17 @@ var rollbar = new Rollbar({
 // record a generic message and send it to Rollbar
 rollbar.log('Hello world!')
 
-
 app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'))
+    rollbar.info('file served')
 })
 
 app.get('/style', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/index.css'))
-    rollbar.info('file served')
+    rollbar.info('css served')
 })
 
-let students = []
+let students = [];
 
 app.post('/api/student', (req, res)=>{
     let {name} = req.body
@@ -47,10 +47,11 @@ app.post('/api/student', (req, res)=>{
 
 })
 
+const port = process.env.PORT || 4004
 app.use(rollbar.errorHandler())
 
-const port = process.env.PORT || 4004
 
+app.use("/styles", express.static(path.join(__dirname, "../client/index.css")));
 
 app.listen(port, () => {
     console.log(`listening on warp ${port}`)
