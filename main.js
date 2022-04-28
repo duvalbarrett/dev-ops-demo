@@ -1,5 +1,3 @@
-console.log("test");
-
 //post name
 let textBox = document.querySelector(".name");
 let paragraphName = document.querySelector(".paragraph-name");
