@@ -15,12 +15,12 @@ var rollbar = new Rollbar({
 rollbar.log('Hello world!')
 
 
-app.get('/chocolate', (req,res) => {
+app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, '../index.html'))
 })
 
 app.get('/css', (req,res) => {
-    res.sendFile(path.join(__dirname, '../index.css'))
+    res.sendFile(path.join(__dirname, '../client/index.css'))
 })
 
 let students = []
