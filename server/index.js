@@ -20,10 +20,10 @@ app.get('/', (req,res) => {
     rollbar.info('file served')
 })
 
-app.get('/style', (req,res) => {
-    res.sendFile(path.join(__dirname, '../style.css'))
-    rollbar.info('css served')
-})
+// app.get('/style', (req,res) => {
+//     res.sendFile(path.join(__dirname, '../style.css'))
+//     rollbar.info('css served')
+// })
 
 let students = [];
 
@@ -42,8 +42,10 @@ app.post('/api/student', (req, res)=>{
         res.status(400).send('must provide a name.')
     } else {
         rollbar.error('student already exists')
+        rollbar.warning('student already exists')
+        rollbar.critical('student already exists')
         res.status(400).send('that student already exists')
-    }
+        }
 
 })
 
@@ -51,7 +53,7 @@ const port = process.env.PORT || 4004
 app.use(rollbar.errorHandler())
 
 
-app.use("/styles", express.static(path.join(__dirname, "../client/index.css")));
+// app.use("/styles", express.static(path.join(__dirname, "../style.css")));
 
 app.listen(port, () => {
     console.log(`listening on warp ${port}`)
