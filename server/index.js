@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 // include and initialize the rollbar library with your access token
 var Rollbar = require('rollbar')
@@ -19,30 +20,12 @@ app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'))
 })
 
-app.get('/css', (req,res) => {
+app.get('/style', (req,res) => {
     res.sendFile(path.join(__dirname, '../client/index.css'))
+    rollbar.info('file served')
 })
 
 let students = []
-app.post('/api/student', (req, res)=>{
-    let {name} = req.body
-    name = name.trim()
-
-    students.push(name)
-
-    res.status(200).send(students)
-})
-
-app.post('/api/student', (req, res)=>{
-    let {name} = req.body
-    name = name.trim()
-
-    students.push(name)
-
-    rollbar.log('Student added successfully', {author: 'Scott', type: 'manual entry'})
-
-    res.status(200).send(students)
-})
 
 app.post('/api/student', (req, res)=>{
     let {name} = req.body
